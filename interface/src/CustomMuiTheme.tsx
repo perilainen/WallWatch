@@ -23,12 +23,36 @@ const theme = createMuiTheme({
   },
 });
 
+const darktheme = createMuiTheme({
+  palette: {
+    type:"dark",
+    primary: {
+      main: '#222',
+    },
+    secondary: {
+      main: '#666',
+    },
+    info: {
+      main: blueGrey[900]
+    },
+    warning: {
+      main: orange[500]
+    },
+    error: {
+      main: red[500]
+    },
+    success: {
+      main: green[500]
+    }
+  }
+});
+
 export default class CustomMuiTheme extends Component {
 
   render() {
     return (
       <StylesProvider>
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={darktheme} >
           <CssBaseline />
           {this.props.children}
         </MuiThemeProvider>

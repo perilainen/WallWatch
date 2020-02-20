@@ -5,6 +5,7 @@
 #include <AdminSettingsService.h>
 #include <NTPStatus.h>
 #include <time.h>
+#include <FastLED.h> 
 #define LED_PIN 2
 #define NUM_LEDS 110
 
@@ -16,10 +17,27 @@ class WatchSettings {
     int red;
     int green;
     int blue;
+    
 };
 
-class WatchBulbs {
-    int hour_low = 0;
+class Watch : public AdminSettingsService<WatchSettings> {
+    public: 
+    Watch(AsyncWebServer* server, FS* fs, SecurityManager* securityManager);
+    ~Watch();
+
+    void loop();
+    
+    private:
+      unsigned long _lastChange = 0;
+      unsigned long _delay = 2500; 
+      void lightBulbs(int low, int high);
+      void lightMinutes(int minutes);
+      void lightHour(int our);
+      void closeBulbs(int low, int high);
+      void lightClock();
+      void testingBulbs();
+      CRGB leds[NUM_LEDS];
+      int hour_low = 0;
     int hour_high = 54;
     int one_low = 44;
     int one_high = 46;
@@ -70,18 +88,6 @@ class WatchBulbs {
     int clock_high = 109;
     int is_low = 100;
     int is_high = 101;
-};
-
-class Watch : public AdminSettingsService<WatchSettings> {
-    public: 
-    Watch(AsyncWebServer* server, FS* fs, SecurityManager* securityManager);
-    ~Watch();
-
-    void loop();
-
-    private:
-      unsigned long _lastChange = 0;
-      unsigned long _delay = 2500;
 
     protected:
       void readFromJsonObject(JsonObject& root);

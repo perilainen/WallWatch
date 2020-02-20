@@ -1,4 +1,3 @@
-#include <DemoProject.h>
 #include <ESP8266React.h>
 #include <FS.h>
 #include <Watch.h>
@@ -6,7 +5,6 @@
 
 AsyncWebServer server(80);
 ESP8266React esp8266React(&server, &SPIFFS);
-DemoProject demoProject = DemoProject(&server, &SPIFFS, esp8266React.getSecurityManager());
 Watch watch = Watch(&server, &SPIFFS, esp8266React.getSecurityManager());
 void setup() {
   // start serial and filesystem
@@ -19,11 +17,8 @@ void setup() {
   SPIFFS.begin();
 #endif
 
-  // start the framework and demo project
+  // start the framework
   esp8266React.begin();
-
-  // start the demo project
-  //demoProject.begin();
 
   watch.begin();
   // start the server

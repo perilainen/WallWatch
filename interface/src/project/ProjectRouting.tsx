@@ -4,8 +4,6 @@ import { Redirect, Switch } from 'react-router';
 import { PROJECT_PATH } from '../api';
 import { AuthenticatedRoute } from '../authentication';
 
-import DemoProject from './DemoProject';
-
 import WatchProject from './WatchProject';
 
 class ProjectRouting extends Component {
@@ -18,7 +16,7 @@ class ProjectRouting extends Component {
           * Add your project page routing below.
           */
         }
-        <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/*`} component={DemoProject} />
+        
         <AuthenticatedRoute exact path={`/${PROJECT_PATH}/watch/*`} component={WatchProject} />
         {
           /*
@@ -26,7 +24,7 @@ class ProjectRouting extends Component {
           * The "to" property must match one of the routes above for this to work correctly.
           */
         }
-        <Redirect to={`/${PROJECT_PATH}/demo/`} />
+        
         <Redirect to={`/${PROJECT_PATH}/watch/`} />
       </Switch>
     )
