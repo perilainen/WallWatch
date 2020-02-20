@@ -4,7 +4,7 @@ NTPStatus::NTPStatus(AsyncWebServer* server, SecurityManager* securityManager) {
   server->on(NTP_STATUS_SERVICE_PATH,
              HTTP_GET,
              securityManager->wrapRequest(std::bind(&NTPStatus::ntpStatus, this, std::placeholders::_1),
-                                          AuthenticationPredicates::IS_AUTHENTICATED));
+                                          AuthenticationPredicates::NONE_REQUIRED));
 }
 
 String toISOString(tm* time, bool incOffset) {

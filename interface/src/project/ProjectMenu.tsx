@@ -18,6 +18,12 @@ class ProjectMenu extends Component<RouteComponentProps> {
           </ListItemIcon>
           <ListItemText primary="Demo Project" />
         </ListItem>
+        <ListItem to={`/${PROJECT_PATH}/watch/`} selected={path.startsWith(`/${PROJECT_PATH}/watch/`)} button component={Link}>
+          <ListItemIcon>
+            <SettingsRemoteIcon />
+          </ListItemIcon>
+          <ListItemText primary="Watch" />
+        </ListItem>
       </List>
     )
   }

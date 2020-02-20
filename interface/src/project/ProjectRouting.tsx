@@ -6,6 +6,8 @@ import { AuthenticatedRoute } from '../authentication';
 
 import DemoProject from './DemoProject';
 
+import WatchProject from './WatchProject';
+
 class ProjectRouting extends Component {
 
   render() {
@@ -17,6 +19,7 @@ class ProjectRouting extends Component {
           */
         }
         <AuthenticatedRoute exact path={`/${PROJECT_PATH}/demo/*`} component={DemoProject} />
+        <AuthenticatedRoute exact path={`/${PROJECT_PATH}/watch/*`} component={WatchProject} />
         {
           /*
           * The redirect below caters for the default project route and redirecting invalid paths.
@@ -24,6 +27,7 @@ class ProjectRouting extends Component {
           */
         }
         <Redirect to={`/${PROJECT_PATH}/demo/`} />
+        <Redirect to={`/${PROJECT_PATH}/watch/`} />
       </Switch>
     )
   }

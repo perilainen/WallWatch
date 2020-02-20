@@ -1,13 +1,13 @@
 #include <DemoProject.h>
 #include <ESP8266React.h>
 #include <FS.h>
-
+#include <Watch.h>
 #define SERIAL_BAUD_RATE 115200
 
 AsyncWebServer server(80);
 ESP8266React esp8266React(&server, &SPIFFS);
 DemoProject demoProject = DemoProject(&server, &SPIFFS, esp8266React.getSecurityManager());
-
+Watch watch = Watch(&server, &SPIFFS, esp8266React.getSecurityManager());
 void setup() {
   // start serial and filesystem
   Serial.begin(SERIAL_BAUD_RATE);
@@ -23,8 +23,9 @@ void setup() {
   esp8266React.begin();
 
   // start the demo project
-  demoProject.begin();
+  //demoProject.begin();
 
+  watch.begin();
   // start the server
   server.begin();
 }
@@ -32,7 +33,9 @@ void setup() {
 void loop() {
   // run the framework's loop function
   esp8266React.loop();
-
+  esp8266React.getNTPSettingsService();
   // run the demo project's loop function
-  demoProject.loop();
+  //demoProject.loop();
+
+  watch.loop();
 }

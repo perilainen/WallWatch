@@ -19,6 +19,7 @@ void DemoProject::loop() {
 
 void DemoProject::readFromJsonObject(JsonObject& root) {
   _settings.blinkSpeed = root["blink_speed"] | DEFAULT_BLINK_SPEED;
+  
 }
 
 void DemoProject::writeToJsonObject(JsonObject& root) {
