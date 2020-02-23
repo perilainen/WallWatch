@@ -1,6 +1,13 @@
 import React from 'react';
 import { TextValidator, ValidatorForm, SelectValidator } from 'react-material-ui-form-validator';
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import { Checkbox, MenuItem } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
@@ -28,9 +35,35 @@ class NTPSettingsForm extends React.Component<NTPSettingsFormProps> {
   }
 
   render() {
+    
     const { data, handleValueChange, handleCheckboxChange, saveData, loadData } = this.props;
+  
+
+    const handleTimeZoneChanged = () => {
+      console.log("Time")
+  
+    }
+  const handleClickDismiss = () => {
+  
+    console.log("dissmissing");
+  };
+
+  const handleClickAgree = () => {
+    };
+
+    if (Intl.DateTimeFormat().resolvedOptions().timeZone!=data.tz_label){
+      handleTimeZoneChanged();
+      //var r = confirm("Wrong time zone detected, should we update timezone?");
+      //if(r==true){
+      //  data.tz_label=Intl.DateTimeFormat().resolvedOptions().timeZone;
+      //  saveData();
+     // }
+    }
+    
     return (
+     
       <ValidatorForm onSubmit={saveData}>
+        
         <BlockFormControlLabel
           control={
             <Checkbox
@@ -77,6 +110,7 @@ class NTPSettingsForm extends React.Component<NTPSettingsFormProps> {
           </FormButton>
         </FormActions>
       </ValidatorForm>
+      
     );
   }
 }

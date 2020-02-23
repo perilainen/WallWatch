@@ -41,8 +41,9 @@ void APSettingsService::manageAP() {
 }
 
 void APSettingsService::startAP() {
-  Serial.println("Starting software access point");
-  WiFi.softAP(_settings.ssid.c_str(), _settings.password.c_str());
+  Serial.println("Starting software access point at: " + _settings.ssid);
+  //WiFi.softAP("test","test");
+  WiFi.softAP(_settings.ssid, _settings.password);
   if (!_dnsServer) {
     IPAddress apIp = WiFi.softAPIP();
     Serial.print("Starting captive portal on ");

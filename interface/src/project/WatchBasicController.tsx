@@ -40,7 +40,7 @@ class WatchController extends Component<WatchControllerProps> {
 
 export default restController(WATCH_SETTINGS_ENDPOINT, WatchController);
 
-const valueToPercentage = (value: number) => `${Math.round(value / 255 * 100)}%`;
+const valueToPercentage = (value: number) => `${Math.round(value / 25.5 * 100)/10}%`;
 
 type WatchControllerFormProps = RestFormProps<WatchSettings>;
 

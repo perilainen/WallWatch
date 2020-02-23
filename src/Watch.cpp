@@ -4,6 +4,9 @@
 Watch::Watch(AsyncWebServer* server, FS* fs, SecurityManager* securityManager) :
     AdminSettingsService(server, fs, securityManager, WATCH_SETTINGS_PATH, WATCH_SETTINGS_FILE) {
     Serial.println("init");
+    //CRGB leds[NUM_LEDS];
+    FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+    FastLED.setBrightness(50);
 }
 
 Watch::~Watch(){
@@ -129,8 +132,10 @@ void Watch::lightClock(){
   
   time_t now = time(nullptr);
   struct tm *ltime = localtime(&now);
-  int hours = ltime->tm_hour;
-  int minutes = ltime->tm_min;
+  uint8_t hours = ltime->tm_hour;
+  uint8_t minutes = ltime->tm_min;
+  Serial.println(hours);
+  Serial.println(minutes);
   
   if (minutes>=25){
     lightHour(1+hours%12);
@@ -141,7 +146,7 @@ void Watch::lightClock(){
   lightMinutes(minutes/5 *5);
   
   FastLED.show();
-  //Serial.println("Fastled Show");
+  Serial.println("Fastled Show");
 }
 
 void Watch::testingBulbs(){
@@ -153,11 +158,7 @@ void Watch::loop(){
     unsigned long currentTime = millis();
     if ((unsigned long)(currentTime - _lastChange)> _delay){
         _lastChange =currentTime;
-        Serial.println("HEJ");
-        time_t now = time(nullptr);
-        struct tm *ltime = localtime(&now);
-        int hours = ltime->tm_hour;
-        int minutes = ltime->tm_min;
+
         lightClock();
 // struct tm *theTime;
 // 	time_t tim = time(nullptr);
@@ -165,11 +166,6 @@ void Watch::loop(){
 // 	theTime = localtime(&tim);
 // 	int hours = theTime->tm_hour;
 //     int minutes = theTime->tm_min;
-    
-    Serial.print(hours);
-    Serial.print(":");
-    Serial.println(minutes);
-    Serial.println(_settings.red);
     
     
         

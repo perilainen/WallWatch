@@ -15,11 +15,11 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import LockIcon from '@material-ui/icons/Lock';
 import MenuIcon from '@material-ui/icons/Menu';
-
+import {FormButton} from '../components'
 import ProjectMenu from '../project/ProjectMenu';
 import { PROJECT_NAME } from '../api';
 import { withAuthenticatedContext, AuthenticatedContextProps } from '../authentication';
-
+import PropTypes from 'prop-types'
 const drawerWidth = 290;
 
 const styles = (theme: Theme) => createStyles({
@@ -76,7 +76,10 @@ interface MenuAppBarProps extends AuthenticatedContextProps, WithTheme, WithStyl
 }
 
 class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
-
+  static contextTypes = {
+    darkTheme: PropTypes.func,
+    lightTheme: PropTypes.func
+  };
   constructor(props: MenuAppBarProps) {
     super(props);
     this.state = {
@@ -101,6 +104,11 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
+
+  handleChangeTheme = () => {
+    console.log("TE");
+  }
+
 
   render() {
     const { classes, theme, children, sectionTitle, authenticatedContext } = this.props;
@@ -149,6 +157,12 @@ class MenuAppBar extends React.Component<MenuAppBarProps, MenuAppBarState> {
             <ListItemText primary="System" />
           </ListItem>
         </List>
+        <FormButton variant="contained" color="secondary" onClick={this.context.darkTheme}>
+          Dark
+        </FormButton>
+        <FormButton variant="contained" color="secondary" onClick={this.context.lightTheme}>
+          Light
+        </FormButton>
       </div>
     );
 
