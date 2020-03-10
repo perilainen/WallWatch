@@ -121,13 +121,19 @@ void Watch::lightHour(int our){
     case 12:
       lightBulbs(twelve_low,twelve_high);
       break;
+    case 0:
+      lightBulbs(twelve_low,twelve_high);
+      break;
   }
   
 }
 void Watch::lightClock(){
   Serial.println("lightning clock");
   closeBulbs(header_low,header_high);
-  lightBulbs(clock_low,clock_high);
+  if (_settings.enableWatchIs){
+    Serial.println("Ligthitning watch is");
+    lightBulbs(clock_low,clock_high);
+  }
   lightBulbs(is_low,is_high);
   
   time_t now = time(nullptr);
@@ -175,6 +181,7 @@ void Watch::readFromJsonObject(JsonObject& root) {
     _settings.red = root["red"] | 100;
     _settings.green = root["green"] | 100;
     _settings.blue = root["blue"] | 100;
+    _settings.enableWatchIs = root["enableWatchIs"] | true;
 
 }
 
@@ -182,6 +189,7 @@ void Watch::writeToJsonObject(JsonObject& root){
     root["red"] = _settings.red;
     root["green"]  = _settings.green;
     root["blue"] = _settings.blue;
+    root["enableWatchIs"] = _settings.enableWatchIs;
 }
     
 

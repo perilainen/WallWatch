@@ -1,6 +1,6 @@
 {
   "ssid": "",
   "password": "password",
-  "hostname": "My-watch",
+  "hostname": "wallclock",
   "static_ip_config": false
 }
